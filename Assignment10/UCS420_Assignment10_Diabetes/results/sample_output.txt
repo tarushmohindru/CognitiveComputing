@@ -1,0 +1,345 @@
+Setup complete.
+Total labelled queries: 189 | Intent categories: 7
+intent
+symptoms_diagnosis      27
+types_causes            27
+diet_nutrition          27
+medication_treatment    27
+monitoring              27
+exercise_lifestyle      27
+complications           27
+Diabetes Care
+├── 1. Understanding Diabetes
+│   ├── 1.1 Types & Causes
+│   │   ├── Type 1
+│   │   ├── Type 2
+│   │   ├── Gestational
+│   │   ├── Prediabetes
+│   │   └── Risk factors
+│   └── 1.2 Symptoms & Diagnosis
+│       ├── Classic symptoms
+│       ├── Warning signs
+│       └── Diagnostic tests
+├── 2. Clinical Management
+│   ├── 2.1 Medication & Insulin
+│   │   ├── Oral medicines (Metformin)
+│   │   ├── Insulin types
+│   │   └── Injection & storage
+│   └── 2.2 Blood Glucose Monitoring
+│       ├── Target ranges
+│       ├── HbA1c
+│       └── Glucometer / CGM
+├── 3. Lifestyle Management
+│   ├── 3.1 Diet & Nutrition
+│   │   ├── Plate method
+│   │   ├── Carbohydrates & GI
+│   │   └── Sweets, fruit & alcohol
+│   └── 3.2 Physical Activity & Wellbeing
+│       ├── Exercise
+│       ├── Weight, sleep & stress
+│       └── Smoking
+├── 4. Complications
+│   ├── 4.1 Acute Complications
+│   │   ├── Hypoglycemia
+│   │   └── Diabetic ketoacidosis (DKA)
+│   └── 4.2 Chronic Complications
+│       ├── Retinopathy
+│       ├── Nephropathy
+│       ├── Neuropathy & foot care
+│       └── Heart disease
+└── 5. Safety & Escalation (rule-based)
+    ├── 5.1 Medical Emergencies
+    │   ├── Unconsciousness / seizures
+    │   └── Critical glucose readings
+    └── 5.2 Out-of-scope Queries
+        ├── Non-diabetes health topics
+        └── Non-health topics
+Concepts: 20 | Relationships: 24
+
+  Type 1 Diabetes          --is_a--> Diabetes Mellitus
+  Type 2 Diabetes          --is_a--> Diabetes Mellitus
+  Gestational Diabetes     --is_a--> Diabetes Mellitus
+  Diabetes Mellitus        --characterized_by--> Hyperglycemia
+  Pancreas                 --produces--> Insulin
+  Insulin                  --lowers--> Blood Glucose
+  Type 1 Diabetes          --destroys_beta_cells_of--> Pancreas
+  Type 1 Diabetes          --treated_with--> Insulin
+  Type 2 Diabetes          --caused_by--> Insulin Resistance
+  Insulin Resistance       --raises--> Blood Glucose
+  Obesity                  --increases--> Insulin Resistance
+  Obesity                  --risk_factor_for--> Type 2 Diabetes
+  Exercise                 --reduces--> Insulin Resistance
+  Exercise                 --lowers--> Blood Glucose
+  Carbohydrates            --raise--> Blood Glucose
+  Metformin                --treats--> Type 2 Diabetes
+  Metformin                --reduces--> Insulin Resistance
+  HbA1c                    --measures_3_month_average_of--> Blood Glucose
+  Insulin                  --overdose_causes--> Hypoglycemia
+  Hyperglycemia            --leads_to--> Retinopathy
+  Hyperglycemia            --leads_to--> Nephropathy
+  Hyperglycemia            --leads_to--> Neuropathy
+  Hyperglycemia            --leads_to--> Cardiovascular Disease
+  Diabetic Ketoacidosis    --acute_complication_of--> Type 1 Diabetes
+Original        : Why am I always feeling THIRSTY and urinating so often at nights?
+1. Lowercase    : why am i always feeling thirsty and urinating so often at nights?
+2. Tokens       : ['why', 'am', 'i', 'always', 'feeling', 'thirsty', 'and', 'urinating', 'so', 'often', 'at', 'nights']
+3. No stopwords : ['always', 'feeling', 'thirsty', 'urinating', 'often', 'nights']
+4. Lemmas       : ['always', 'feel', 'thirsty', 'urinate', 'often', 'night']
+Train size: 141 | Test size: 48
+Word-level TF-IDF vocabulary size : 626
+Char-level TF-IDF vocabulary size : 2590
+Trained: Naive Bayes, Logistic Regression, Linear SVM
+                     Accuracy  Precision  Recall  F1-score  5-fold CV F1 (mean)  5-fold CV F1 (std)
+Model                                                                                              
+Naive Bayes             0.812      0.821   0.810     0.807                0.771               0.087
+Logistic Regression     0.792      0.817   0.786     0.787                0.774               0.095
+Linear SVM              0.771      0.796   0.765     0.766                0.776               0.081
+Deployed model: Logistic Regression
+
+                      precision    recall  f1-score   support
+
+       complications       1.00      0.50      0.67         6
+      diet_nutrition       0.44      0.57      0.50         7
+  exercise_lifestyle       0.67      0.57      0.62         7
+medication_treatment       0.88      1.00      0.93         7
+          monitoring       0.88      1.00      0.93         7
+  symptoms_diagnosis       1.00      1.00      1.00         7
+        types_causes       0.86      0.86      0.86         7
+
+            accuracy                           0.79        48
+           macro avg       0.82      0.79      0.79        48
+        weighted avg       0.81      0.79      0.79        48
+
+Final model trained on all 189 queries. Unigram vocabulary: 288
+Knowledge base entries per intent:
+  Symptoms & Diagnosis      : 1 overview + 4 topics
+  Types & Causes            : 1 overview + 6 topics
+  Diet & Nutrition          : 1 overview + 8 topics
+  Medication & Treatment    : 1 overview + 9 topics
+  Blood Glucose Monitoring  : 1 overview + 7 topics
+  Exercise & Lifestyle      : 1 overview + 9 topics
+  Complications             : 1 overview + 8 topics
+Override rules : ['R1 Emergency escalation', 'R2 Critical glucose reading', 'R3 Greeting / empty input', 'R4 Unsupported query', 'R5 Low confidence']
+Augment rules  : ['R6 Glucose reading interpretation', 'R7 Medication-change safety', 'R8 Pregnancy context']
+🧑 You: What are the symptoms of diabetes?
+🎯 Intent: Symptoms & Diagnosis  |  confidence: 99%
+🗂️ Taxonomy: Diabetes Care > 1. Understanding Diabetes > 1.2 Symptoms & Diagnosis
+🤖 Assistant:
+Common symptoms of diabetes include frequent urination (polyuria), excessive thirst (polydipsia), increased hunger, unexplained weight loss, fatigue, blurred vision, slow-healing sores and frequent infections. Type 2 diabetes often develops slowly with mild or no symptoms, so regular screening is important.
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 1. Intent: Symptoms & Diagnosis
+🧑 You: What are the warning signs that someone has diabetes?
+🎯 Intent: Symptoms & Diagnosis  |  confidence: 98%
+🗂️ Taxonomy: Diabetes Care > 1. Understanding Diabetes > 1.2 Symptoms & Diagnosis
+🤖 Assistant:
+Common symptoms of diabetes include frequent urination (polyuria), excessive thirst (polydipsia), increased hunger, unexplained weight loss, fatigue, blurred vision, slow-healing sores and frequent infections. Type 2 diabetes often develops slowly with mild or no symptoms, so regular screening is important.
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 1. Intent: Types & Causes
+🧑 You: Am I more likely to get diabetes if I am overweight?
+🎯 Intent: Types & Causes  |  confidence: 52%
+🗂️ Taxonomy: Diabetes Care > 1. Understanding Diabetes > 1.1 Types & Causes
+🤖 Assistant:
+Risk factors for Type 2 diabetes: overweight/obesity (especially belly fat), physical inactivity, family history, age over 35–45, South-Asian ethnicity, high blood pressure, abnormal cholesterol, history of gestational diabetes and PCOS. Eating sugar does not directly cause diabetes, but a diet high in sugar and calories leads to weight gain, which raises risk. Type 1 is caused by an autoimmune reaction plus genetic factors — not by diet.
+
+🔗 Knowledge-graph reasoning:
+  Obesity --risk_factor_for--> Type 2 Diabetes --is_a--> Diabetes Mellitus
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 1. Intent: Diet & Nutrition
+🧑 You: Is it okay for a diabetic to eat mango?
+🎯 Intent: Diet & Nutrition  |  confidence: 99%
+🗂️ Taxonomy: Diabetes Care > 3. Lifestyle Management > 3.1 Diet & Nutrition
+🤖 Assistant:
+Whole fruits are healthy for diabetics because of their fibre and vitamins. Prefer low-GI fruits (apple, guava, pear, berries, orange) and eat 1 small portion at a time. Limit very sweet fruits (mango, grapes, chikoo) to small amounts, and avoid fruit juices.
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 1. Intent: Medication & Treatment
+🧑 You: What are the side effects of metformin tablets?
+🎯 Intent: Medication & Treatment  |  confidence: 100%
+🗂️ Taxonomy: Diabetes Care > 2. Clinical Management > 2.1 Medication & Insulin
+🤖 Assistant:
+Metformin is usually the first-line medicine for Type 2 diabetes. It reduces glucose production by the liver and improves insulin sensitivity, and does not usually cause hypoglycemia on its own. Common side effects: nausea, diarrhoea, stomach upset (reduced by taking it with meals or using extended-release); long-term use can lower vitamin B12.
+
+🔗 Knowledge-graph reasoning:
+  Metformin --treats--> Type 2 Diabetes
+  Metformin --reduces--> Insulin Resistance
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 1. Intent: Blood Glucose Monitoring
+🧑 You: What is the target HbA1c for a diabetic?
+🎯 Intent: Blood Glucose Monitoring  |  confidence: 89%
+🗂️ Taxonomy: Diabetes Care > 2. Clinical Management > 2.2 Blood Glucose Monitoring
+🤖 Assistant:
+HbA1c measures the percentage of haemoglobin coated with glucose and reflects average blood sugar over the last 2–3 months. Normal < 5.7%, prediabetes 5.7–6.4%, diabetes ≥ 6.5%. Most adults with diabetes aim for < 7%. It is usually checked every 3–6 months.
+
+🔗 Knowledge-graph reasoning:
+  HbA1c --measures_3_month_average_of--> Blood Glucose
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 1. Intent: Exercise & Lifestyle
+🧑 You: Can yoga and walking help me manage my diabetes?
+🎯 Intent: Exercise & Lifestyle  |  confidence: 99%
+🗂️ Taxonomy: Diabetes Care > 3. Lifestyle Management > 3.2 Physical Activity & Wellbeing
+🤖 Assistant:
+Yoga can help diabetes by improving flexibility, reducing stress hormones and modestly lowering glucose and HbA1c. It works best combined with aerobic activity such as walking.
+
+🔗 Knowledge-graph reasoning:
+  Exercise --reduces--> Insulin Resistance
+  Exercise --lowers--> Blood Glucose
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 1. Intent: Complications
+🧑 You: How can diabetes damage my kidneys?
+🎯 Intent: Complications  |  confidence: 98%
+🗂️ Taxonomy: Diabetes Care > 4. Complications > 4.2 Chronic Complications
+🤖 Assistant:
+Diabetes is the leading cause of kidney disease (nephropathy). Get urine albumin and blood creatinine (eGFR) tests every year; control sugar and blood pressure and avoid unnecessary painkillers (NSAIDs).
+
+🔗 Knowledge-graph reasoning:
+  Diabetes Mellitus --characterized_by--> Hyperglycemia --leads_to--> Nephropathy
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 2. Differently worded
+🧑 You: My mouth is always dry and I keep running to the toilet at night — should I worry?
+🎯 Intent: Symptoms & Diagnosis  |  confidence: 46%
+🗂️ Taxonomy: Diabetes Care > 1. Understanding Diabetes > 1.2 Symptoms & Diagnosis
+🤖 Assistant:
+Common symptoms of diabetes include frequent urination (polyuria), excessive thirst (polydipsia), increased hunger, unexplained weight loss, fatigue, blurred vision, slow-healing sores and frequent infections. Type 2 diabetes often develops slowly with mild or no symptoms, so regular screening is important.
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 2. Differently worded
+🧑 You: I checked my glucose after lunch and it showed 165 — is that fine?
+🎯 Intent: Blood Glucose Monitoring  |  confidence: 95%
+🗂️ Taxonomy: Diabetes Care > 2. Clinical Management > 2.2 Blood Glucose Monitoring
+📐 Rules applied: R6 Glucose reading interpretation
+🤖 Assistant:
+After meals (1–2 hours) blood sugar should ideally be below 180 mg/dL for people with diabetes and below 140 mg/dL for people without diabetes.
+
+📊 Your reading of 165 mg/dL is above the fasting target (80–130) but within the after-meal target (< 180 at 1–2 h).
+
+🔗 Knowledge-graph reasoning:
+  Insulin --lowers--> Blood Glucose
+  Insulin Resistance --raises--> Blood Glucose
+  Exercise --lowers--> Blood Glucose
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 2. Differently worded
+🧑 You: I'm scared of needles — how do I give myself insulin properly?
+🎯 Intent: Medication & Treatment  |  confidence: 97%
+🗂️ Taxonomy: Diabetes Care > 2. Clinical Management > 2.1 Medication & Insulin
+🤖 Assistant:
+Insulin is injected under the skin of the abdomen, thighs, upper arms or buttocks. Rotate sites to avoid lumps, use a new needle, and inject at the times your doctor prescribed — mealtime insulin usually 0–15 minutes before eating, basal insulin at the same time each day.
+
+🔗 Knowledge-graph reasoning:
+  Pancreas --produces--> Insulin
+  Insulin --lowers--> Blood Glucose
+  Type 1 Diabetes --treated_with--> Insulin
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 3. Unsupported query
+🧑 You: How do I treat a migraine headache?
+⚙️ Handled by rule: R4 Unsupported query  (classifier guess: Complications, 44%)
+🗂️ Taxonomy: Diabetes Care > 5. Safety & Escalation > 5.2 Out-of-scope Queries
+🤖 Assistant:
+❌ Sorry, 'headache, migraine' is outside my scope. I am a Diabetes Care Information Assistant and can only answer diabetes-related questions (symptoms, types & causes, diet, medication, monitoring, exercise and complications). Please consult a general physician or the appropriate specialist for other health concerns.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 3. Unsupported query
+🧑 You: What is the best vaccine for covid?
+⚙️ Handled by rule: R4 Unsupported query  (classifier guess: Diet & Nutrition, 40%)
+🗂️ Taxonomy: Diabetes Care > 5. Safety & Escalation > 5.2 Out-of-scope Queries
+🤖 Assistant:
+❌ Sorry, 'covid, vaccine' is outside my scope. I am a Diabetes Care Information Assistant and can only answer diabetes-related questions (symptoms, types & causes, diet, medication, monitoring, exercise and complications). Please consult a general physician or the appropriate specialist for other health concerns.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 4. Low-confidence query
+🧑 You: Is this normal for a diabetic?
+⚙️ Handled by rule: R5 Low confidence  (classifier guess: Diet & Nutrition, 37%)
+🤖 Assistant:
+🤔 I'm not confident I understood your question (confidence 37%). Did you mean:
+  1) Diet & Nutrition (37%), or
+  2) Blood Glucose Monitoring (34%)?
+Please rephrase with more detail — e.g. 'What foods should I eat?' or 'What is a normal sugar level?'
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 4. Low-confidence query
+🧑 You: I have a question about diabetes
+⚙️ Handled by rule: R5 Low confidence  (classifier guess: Types & Causes, 45%)
+🤖 Assistant:
+🤔 I'm not confident I understood your question (confidence 45%). Did you mean:
+  1) Types & Causes (45%), or
+  2) Symptoms & Diagnosis (43%)?
+Please rephrase with more detail — e.g. 'What foods should I eat?' or 'What is a normal sugar level?'
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 5. Emergency query
+🧑 You: My diabetic father has fainted and is not responding!
+⚙️ Handled by rule: R1 Emergency escalation  (classifier guess: Diet & Nutrition, 49%)
+🗂️ Taxonomy: Diabetes Care > 5. Safety & Escalation > 5.1 Medical Emergencies
+🤖 Assistant:
+🚨 POSSIBLE MEDICAL EMERGENCY
+• Call emergency services now: 112 (or 108 for ambulance in India).
+• If the person is conscious and may have LOW sugar, give 15–20 g of fast sugar (glucose tablets, juice, sugar in water). Do NOT give anything by mouth if they are unconscious or having a seizure — lay them on their side.
+• If HIGH sugar with vomiting, deep breathing or fruity breath (possible DKA), go to the nearest hospital immediately.
+• Stay with the person and do not drive yourself if you feel unwell.
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+
+#### TEST — 5. Emergency query
+🧑 You: My sugar is 45 and I am shaking and sweating
+⚙️ Handled by rule: R2 Critical glucose reading  (classifier guess: Blood Glucose Monitoring, 45%)
+🗂️ Taxonomy: Diabetes Care > 5. Safety & Escalation > 5.1 Medical Emergencies
+🤖 Assistant:
+🚨 URGENT: A reading of 45 mg/dL is a seriously LOW blood sugar (level 2 hypoglycemia).
+• Take 15–20 g of fast-acting sugar now (½ cup juice, 3–4 glucose tablets, 1 tbsp sugar).
+• Recheck in 15 minutes and repeat if still below 70 mg/dL, then eat a snack.
+• If the person becomes confused, drowsy or unconscious, call 112 (or 108 for ambulance in India) immediately.
+
+ℹ️ This is general health information, not a diagnosis. Please consult your doctor for personal medical advice.
+----------------------------------------------------------------------------------------------------
+                               Test                                                                              Query               Handled as Confidence                       Rules fired
+    1. Intent: Symptoms & Diagnosis                              What are the warning signs that someone has diabetes?     Symptoms & Diagnosis        98%                                 —
+          1. Intent: Types & Causes                               Am I more likely to get diabetes if I am overweight?           Types & Causes        52%                                 —
+        1. Intent: Diet & Nutrition                                            Is it okay for a diabetic to eat mango?         Diet & Nutrition        99%                                 —
+  1. Intent: Medication & Treatment                                    What are the side effects of metformin tablets?   Medication & Treatment       100%                                 —
+1. Intent: Blood Glucose Monitoring                                           What is the target HbA1c for a diabetic? Blood Glucose Monitoring        89%                                 —
+    1. Intent: Exercise & Lifestyle                                   Can yoga and walking help me manage my diabetes?     Exercise & Lifestyle        99%                                 —
+           1. Intent: Complications                                                How can diabetes damage my kidneys?            Complications        98%                                 —
+              2. Differently worded My mouth is always dry and I keep running to the toilet at night — should I worry?     Symptoms & Diagnosis        46%                                 —
+              2. Differently worded                 I checked my glucose after lunch and it showed 165 — is that fine? Blood Glucose Monitoring        95% R6 Glucose reading interpretation
+              2. Differently worded                     I'm scared of needles — how do I give myself insulin properly?   Medication & Treatment        97%                                 —
+               3. Unsupported query                                                How do I treat a migraine headache?        Unsupported query        44%              R4 Unsupported query
+               3. Unsupported query                                                What is the best vaccine for covid?        Unsupported query        40%              R4 Unsupported query
+            4. Low-confidence query                                                     Is this normal for a diabetic?           Low confidence        37%                 R5 Low confidence
+            4. Low-confidence query                                                   I have a question about diabetes           Low confidence        45%                 R5 Low confidence
+                 5. Emergency query                              My diabetic father has fainted and is not responding!     Emergency escalation        49%           R1 Emergency escalation
+                 5. Emergency query                                       My sugar is 45 and I am shaking and sweating Critical glucose reading        45%       R2 Critical glucose reading
