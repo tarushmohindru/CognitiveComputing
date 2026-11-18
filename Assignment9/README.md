@@ -1,0 +1,2 @@
+Q1: https://predict.app.landing.ai/inference/v1/predict?endpoint_id=60894a40-5d62-4d72-8938-159f08ef22a1
+Q2: https://predict.app.landing.ai/inference/v1/predict?endpoint_id=3443da16-275b-42aa-8d04-e13cc00d03ca
